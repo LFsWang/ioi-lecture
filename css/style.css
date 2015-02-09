@@ -1,11 +1,14 @@
 
-.reveal code {
+.reveal pre code {
   font-family: "Source Code Pro", monospace;
+  font-size: 140%;
+  line-height: 120%;
+  max-height: 500px;
 }
 
 .reveal {
-  font-size: 30px;
-  font-family: "Source Han Sans TW", "cwTex Q hei", 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+  font-size: 32px;
+  font-family: "Source Han Sans TW", "思源黑體", "cwTex Q hei", 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
 }
 
 .reveal .MathJax {
@@ -14,7 +17,7 @@
 
 
 div.def {
-  width: 75%;
+  width: 89%;
   margin: 10px auto;
   padding: 10px 15px;
   border-radius: 10px;
@@ -33,7 +36,7 @@ div.def::before {
 }
 
 div.thm {
-  width: 75%;
+  width: 89%;
   margin: 10px auto;
   padding: 10px 15px;
   border-radius: 10px;
@@ -78,7 +81,7 @@ div.prob::before {
 }
 
 div.quick {
-  width: 75%;
+  width: 89%;
   margin: 10px auto;
   padding: 10px 15px;
   border-radius: 10px;
@@ -105,4 +108,16 @@ div.prob a::before {
 
 .prob hr {
   border-color: #000072;
+}
+
+div.flex-row {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+}
+
+div.inline {
+  display: inline-block;
+  width: 50%;
 }

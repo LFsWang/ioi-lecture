@@ -67,6 +67,10 @@
         <section>
           <section>
             <h3> 字串為何如此重要？ </h3>
+            <p> 當然！ 字串是我們傳遞資訊的基本單位？ </p>
+            <aside class="notes">
+              123
+            </aside>
           </section>
 
           <section>
@@ -246,6 +250,29 @@ for(int i = 0; i < lenA - lenB; i++) {
               </div>
               <p> 咦？跟字串有什麼關係？ </p>
             </section>
+
+            <section>
+              <h3> 真的不會撞嗎？ </h3>
+              <p> 一個字串和其他 \( k \) 個字串撞的機率
+                $$ 1 - \left( 1 - \frac{1}{q} \right) ^ k $$
+              </p> <br>
+
+              <p> \( k \) 個字串中任一對相撞的機率
+                $$ 1 - \frac{ q^{ \underline{k} } }{q^k} $$
+              </p>
+            </section>
+
+            <section>
+              <h3> 真的不會撞嗎？ </h3>
+              <p> 如果 \( q = 10^9, k = 10^5 \) </p>
+              <p> 一個字串和其他 \( k \) 個字串撞的機率
+                $$ 1 - \left( 1 - \frac{1}{q} \right) ^ k \approx 10^{-4}$$
+              </p> <br>
+
+              <p> \( k \) 個字串中任一對相撞的機率
+                $$ 1 - \frac{ q^{ \underline{k} } }{q^k} \approx 99.3$$
+              </p>
+            </section>
           </section>
 
           <section>
@@ -282,7 +309,7 @@ for(int i = 0; i < lenA - lenB; i++) {
 
             <section>
               <h3> Fail function 的遞回 </h3>
-              <p> 利用 \( \fail(k) : k \le i \) ， 我們可以求出 \( \fail(i) \) ！ </p>
+              <p> 利用 \( \fail(k) : k < i \) ， 我們可以求出 \( \fail(i) \) ！ </p>
               <p> 不段嘗試 \( \fail(i), \fail^2(i), \fail^3(i), \cdots \) </p>
             </section>
 
@@ -325,6 +352,14 @@ void match(string A, string B, int *fail) {
             </section>
 
             <section>
+              <h3>複雜度分析</h3>
+
+              <p> 關鍵在 \( \texttt{while} \) 迴圈 </p>
+              <p> 每次 \( \texttt{current_pos} \) 只會加1，或是減去某個值。</p>
+              <p> 均攤後 \( \ord{\abs{A} + \abs{B}} \) </p>
+            </section>
+
+            <section>
               <div class="prob">
                 字串的周期 <a> 經典問題 </a> <br>
                 <hr>
@@ -335,10 +370,9 @@ void match(string A, string B, int *fail) {
 
             <section>
               <div class="prob">
-                ABA  <a> 經典問題 </a> <br>
+                Penny's game  <a> 經典問題 </a> <br>
                 <hr>
-                對一個字串 \( S \) ，請找一個最長的 \(A\) 使得 \( S = ABA \)
-                (  \( \ord{\abs{S}} \) )
+                丟一個銅板，正面就在當前字串後記A，反面記B。現在給你一個AB序列，問你丟出此AB序列所需的期望時間為何？
               </div>
             </section>
 
@@ -362,11 +396,13 @@ void match(string A, string B, int *fail) {
 
             
             <section>
-              <h3> 如何求得 Z-Value ? </h3>
-              <p>利用已知的資訊！</p>
-              <script type="text/paperscript" canvas="myCanvas">
-              var start = new Point(10, 100);
+              <h3> 複習一下！ </h3>
+              <p>KMP</p>
+              <script type="text/paperscript" canvas="canvas-KMP">
+              var starty = 20;
+              var start = new Point(10, starty);
               var end = start + [400, 0];
+              /*
               var path = new CompoundPath({
                 children: [
                   new Path.Line(start, end), 
@@ -377,19 +413,101 @@ void match(string A, string B, int *fail) {
               path.style = {
                 strokeColor: 'black',
                 strokeWidth: 5,
+              }; */
+              createRec = function(a, b, c) {
+                var hwd = 16;
+                var rec = new Rectangle(start + [a, -hwd], start + [b, hwd]);
+                var path = new Path.RoundRectangle(rec, 5);
+                path.style = {
+                  fillColor: c,
+                };
+                return path;
               };
-              var rect1 = new Rectangle(start - [0, 20], start + [100, 20]);
-              var pathRec = new Path.RoundRectangle(rect1, 5);
-              pathRec.style = {
-                fillColor: 'blue',
-              };
+
+              createRec(0, 600, 'grey');
+              createRec(0, 140, 'green');
+              createRec(300, 440, 'green');
+              createRec(400, 440, 'red');
+
+              var text2 = new PointText({
+                  point: [430, starty+10],
+                  content: 'i',
+                  justification: 'center',
+                  fillColor: 'black',
+                  fontSize: 25,
+              });
               </script>
-              <canvas id="myCanvas" width="450" height="300"></canvas>
+              <canvas id="canvas-KMP" width="650" height="100"></canvas><br>
+
+              <p>Z-value</p>
+              <script type="text/paperscript" canvas="canvas-Z">
+              var starty = 20;
+              var start = new Point(10, starty);
+              var end = start + [400, 0];
+              /*
+              var path = new CompoundPath({
+                children: [
+                  new Path.Line(start, end), 
+                  new Path.Line(start - [0, 20], start + [0, 20]), 
+                  new Path.Line(end - [0, 20], end + [0, 20]), 
+                ],
+              });
+              path.style = {
+                strokeColor: 'black',
+                strokeWidth: 5,
+              }; */
+              createRec = function(a, b, c) {
+                var hwd = 16;
+                var rec = new Rectangle(start + [a, -hwd], start + [b, hwd]);
+                var path = new Path.RoundRectangle(rec, 5);
+                path.style = {
+                  fillColor: c,
+                };
+                return path;
+              };
+
+              createRec(0, 600, 'grey');
+              createRec(0, 160, 'blue');
+              createRec(400, 560, 'blue');
+              createRec(400, 440, 'red');
+
+              var text2 = new PointText({
+                  point: [430, starty+10],
+                  content: 'i',
+                  justification: 'center',
+                  fillColor: 'black',
+                  fontSize: 25,
+              });
+              </script>
+              <canvas id="canvas-Z" width="650" height="100"></canvas>
             </section>
 
             <section>
               <h3> 如何求得 Z-Value ? </h3>
-              <p>利用已知的資訊！</p>
+              <p> 利用已知的資訊！ </p>
+              <p> 關鍵的三種 Case ！ </p>
+            </section>
+
+            <section>
+              <h3> Sample Code </h3>
+              <pre><code data-trim class="cpp">
+L = R = 0;
+for ( int i = 1 ; i < len ; i ++ ) {
+    if ( i > R ) Z[i] = 0; // Case 0
+    else {
+        int ip = i - L;
+        if ( ip + Z[ip] < Z[L] ) Z[i] = Z[ip]; // Case 1
+        else Z[i] = R - i + 1; // Case 2, 3
+    }
+    while ( i + Z[i] < len && 
+            A[ i + Z[i] ] == A[ Z[i] ] ) Z[i] ++;
+
+    if ( i + Z[i] - 1 > R ) {
+        L = i;
+        R = i + Z[i] - 1;
+    }
+}
+              </code></pre>
             </section>
 
             <section>
@@ -402,9 +520,18 @@ void match(string A, string B, int *fail) {
 
             <section>
               <div class="prob">
+                最長回文子字串 <a> 經典問題 </a> <br>
+                <hr>
+                給定字串 \( S \)，求出最長 \( S \) 的子字串 \( A \) 使得 \( A \) 是一個回文 。 <br>
+                ( \( \ord{\abs{S}} \) )
+              </div>
+            </section>
+
+            <section>
+              <div class="prob">
                 Template <a href="http://main.edu.pl/en/archive/oi/12/sza"> POI XII </a> <br>
                 <hr>
-                給定字串 \( S \)，求出最短的 \( A \) 使得 \( A \) 可以覆蓋 \( S \) 。 <br>
+                給定字串 \( S \)，求出最短的 \( A \) 使得 \( A \) 可以完全覆蓋 \( S \) 。 <br>
                 (  \( \abs{S} \leq 500000 \) )
               </div>
             </section>
@@ -432,10 +559,49 @@ void match(string A, string B, int *fail) {
               <p> 好處：
                 <ul>
                   <li> 相像的後綴會被排在一起。</li>
-                  <li> 要匹配一個字串，只要二分搜，看哪個跟他最像，從頭比對！</li>
+                  <li> 要匹配一個字串，只要二分搜，<br>看哪個跟他最像，從頭比對！</li>
                 </ul>
               </p>
             </section>
+
+            <section>
+              <h3> Suffix Array </h3>
+              <div class="def">
+                <ul>
+                  <li> \( \rank(i) \) 表示後綴 \( S_B(i) \) 在 \( S_B \) 中是字典序第幾小的<br>(從 \( 0 \) 開始算)。</li>
+                  <li> \( \sa(i) = \rank^{-1}(i) \) ，也就是說第 \( i \) 小的後綴是哪一個。</li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <p> Ex: \( S = \str{ABAABAAAB} \) </p>
+              <div class="flex-row">
+              <table style='font-size: 90%'>
+                <tr> <td> \( \sa \) </td><td> </td> </tr>
+                <tr> <td> \( 5 \) </td><td> AAAB </td> </tr>
+                <tr> <td> \( 6 \) </td><td> AAB </td> </tr>
+                <tr> <td> \( 2 \) </td><td> AABAAAB </td> </tr>
+                <tr> <td> \( 7 \) </td><td> AB </td> </tr>
+                <tr> <td> \( 3 \) </td><td> ABAAAB </td> </tr>
+                <tr> <td> \( 0 \) </td><td> ABAABAAAB </td> </tr>
+                <tr> <td> \( 8 \) </td><td> B </td> </tr>
+                <tr> <td> \( 4 \) </td><td> BAAAB </td> </tr>
+                <tr> <td> \( 1 \) </td><td> BAABAAAB </td> </tr>
+  <!--0 & 5 & 0 & AAAB \\-->
+  <!--1 & 6 & 2 & AAB \\-->
+  <!--2 & 2 & 3 & AABAAAB \\-->
+  <!--3 & 7 & 1 & AB \\-->
+  <!--4 & 3 & 2 & ABAAAB \\-->
+  <!--5 & 0 & 4 & ABAABAAAB \\-->
+  <!--6 & 8 & 0 & B \\-->
+  <!--7 & 4 & 1 & BAAAB \\-->
+  <!--8 & 1 & 3 & BAABAAAB-->
+              </table>
+              <div class="quick inline"> \( \rank(i) \) 分別是多少？ </div>
+            </div>
+            </section>
+
             <section>
               <h3> Suffix Array </h3>
               <p> 問題來了，怎麼排序？ </p>
@@ -469,19 +635,129 @@ void match(string A, string B, int *fail) {
               <h3> Height Array </h3>
               <p> 前面說過， Suffix Array 會把相像的後綴排在一起。 </p>
               <div class="def"> 
-                
+                 \(\hei(i)\) 代表 \(S_{B}(\sa(i))\) 跟 \(S_{B}(\sa(i-1))\) 前 \(k\) 個字元相同。
               </div>
               <p> </p>
+            </section>
+
+            <section>
+              <h3> Height Array </h3>
+              <div class="thm"> 
+                假設 \( \rank(i) < \rank(j) \) ，則  \(  d(S(i), S(j)) = \min\limits_{\rank(i) < k \leq \rank(j)} \hei(k)  \)  
+              </div>
+              <p> 證明：看圖說故事！ </p>
+              <p> 這正是 Suffix Array 強大的地方！ </p>
+            </section>
+
+            <section>
+              <h3> 建構 Height Array </h3>
+              <div class="thm"> 
+                $\hei(\rank(i)) \geq \hei(\rank(i-1)) - 1$
+              </div>
+              <p> 證明：一樣看圖說故事！ </p>
+            </section>
+
+            <section>
+              <div class="prob"> 
+                最長重複子字串 <a> 經典問題 </a> <br>
+                <hr>
+                給一個字串  \( A \)  ，求出他最長的一個重複的子字串，重複的部分可以重疊。( \(  \ord{ \sa } \) ) <br>
+                如果改成不能重複呢？  ( \( \ord{ \abs{A} \log \abs{A} } \) )
+              </div>
+            </section>
+
+            <section>
+              <div class="prob"> 
+                最長2重複子字串 <a> 經典問題 </a> <br>
+                <hr>
+                給一個字串  \( A \)  ，求出他最長的一個子字串 \( B \) ，並且 \( B \) 的前半段和後半段相同。( \(  \ord{ \abs{A} \log \abs{A} } \) ) 
+              </div>
             </section>
 
             <section>
               <div class="prob"> 
                 Nessaj, the Chaos Knight <a href="http://main.edu.pl/en/archive/oi/12/sza"> 2013 NTU Final(簡化版) </a> <br>
                 <hr>
-                現在有一個七段顯示器，你只知道他會從 \( [1, M] \) 中的某一秒開始倒數。 現在有一個人他把七段顯示器的
+                現在有一個由四個相同的七段顯示器構成的倒數計時器，你只知道他會從 \( [1, M] \) 中的某一秒開始倒數。
+                現在有一個人他把四個七段顯示器相同的某 \( K \) 個位置都破壞掉了(也就是不會亮)。
+                問在最壞的情況你要看多少秒才知道當前的秒數(你並不知道 \( K \) 是多少)？ <br>
+                ( \( M \lt 10000 , 0 \le K \le 7\) )
               </div>
             </section>
 
+          </section>
+
+          <section>
+            <section>
+              <h3> Trie </h3>
+              <p> 一個儲存多個字串的好方法 </p>
+            </section>
+            <section>
+              <h3> Trie </h3>
+            </section>
+          </section>
+
+          <section>
+            <section>
+              <h3> 多字串匹配 </h3>
+              <ul>
+                <li> 一個字串 \( B \) 匹配很多字串 \( A_i \) 。<br>
+                  你應該要會了！ \( \ord{ \abs{B} + \sum \abs{A_i}} \) ，線性。 
+                </li>
+                <li style="margin-top: 20px"> 多個字串 \( B_i \) 匹配一個字串 \( A \) 。 <br>
+                      \( \ord{ n \abs{A} + \sum \abs{B_i}  } \) ，不夠好。
+                </li>
+              </ul>
+            </section>
+
+            <section>
+              <h3> AC 自動機 </h3>
+              <p> 聽這個名字就很猛的樣子。 </p>
+              <p> 不過他不是自動 AC 機。 </p>
+            </section>
+
+            <section>
+              <p> 還記得 KMP 嗎？ </p>
+              <p> KMP + Trie = AC 自動機！ </p>
+            </section>
+
+            <section>
+              <h3> 超級比一比 </h3>
+              <script type="text/paperscript" src="js/fig/ACKMP1.js" canvas="canvas-ACKMP1"> </script>
+              <p> KMP： </p>
+              <canvas id="canvas-ACKMP1" width="550" height="150"></canvas><br>
+              <p> AC自動機： </p>
+              <script type="text/paperscript" src="js/fig/ACAC1.js" canvas="canvas-ACAC1">
+              </script>
+              <canvas id="canvas-ACAC1" width="300" height="300"></canvas><br>
+            </section>
+
+            <section>
+              <h3> 超級比一比 </h3>
+              <p> KMP： <br>
+                \( \fail(i) = \max k \) ， 其中 \( A[0, k] \) 要是 \( A[0, i] \) 的前綴。 
+              </p><br>
+
+              <p> AC自動機： </p>
+              <div class="def">
+                \( \flk(v) = \argmax\limits_{u} \abs{S_T(u)} \) ， 其中 \( S_T(u) \) 要是 \( S_T(v) \) 的前綴。
+              </div>
+            </section>
+
+            <section>
+              <h3> 超級比一比 </h3>
+              <p> KMP： 
+                匹配失敗，沿著 \( \fail(i), \fail^2(i) , \cdots \) 嘗試，直到 \( \fail^t(i) = -1 \)。 
+              </p><br>
+
+              <p> AC自動機： 
+                匹配失敗，沿著 \( \flk(v), \flk^2(v) , \cdots \) 嘗試，直到 \( \flk^t(v) = v_0 \)，其中 \(v_0\) 表示根節點。 
+              </p>
+            </section>
+
+            <section>
+            
+            </section>
           </section>
         </div>
       </div>
