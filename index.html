@@ -43,25 +43,31 @@
       <div class="slides">
 
         \( 
-          \newcommand{\ord}[1]{\opord\left(#1\right)}
-          \newcommand{\abs}[1]{\lvert #1 \rvert}
-          \newcommand{\floor}[1]{\lfloor #1 \rfloor}
-          \newcommand{\ceil}[1]{\lceil #1 \rceil}
-          \newcommand{\opord}{\operatorname{\mathcal{O}}}
-          \newcommand{\fail}{\operatorname{\mathcal{F}}}
-          \newcommand{\flk}{\operatorname{\mathfrak{F}}}
-          \newcommand{\suf}{\operatorname{\sigma}}
-          \newcommand{\rank}{\operatorname{\mathcal{R}}}
-          \newcommand{\sa}{\operatorname{\mathcal{SA}}}
-          \newcommand{\hei}{\operatorname{\mathcal{H}}}
-          \newcommand{\edps}{\operatorname{\mathcal{E}}}
-          \newcommand{\mx}{\operatorname{\mathcal{M}}}
-          \newcommand{\argmax}{\operatorname{arg\,max}}
-          \newcommand{\cons}[1]{\left[ \: #1 \: \right]}
-          \newcommand{\str}[1]{\texttt{"#1"}}
+        \newcommand{\ord}[1]{\opord\left(#1\right)}
+        \newcommand{\abs}[1]{\lvert #1 \rvert}
+        \newcommand{\floor}[1]{\lfloor #1 \rfloor}
+        \newcommand{\ceil}[1]{\lceil #1 \rceil}
+        \newcommand{\opord}{\operatorname{\mathcal{O}}}
+        \newcommand{\fail}{\operatorname{\mathcal{F}}}
+        \newcommand{\flk}{\operatorname{\mathfrak{F}}}
+        \newcommand{\suf}{\operatorname{\sigma}}
+        \newcommand{\rank}{\operatorname{\mathcal{R}}}
+        \newcommand{\sa}{\operatorname{\mathcal{SA}}}
+        \newcommand{\hei}{\operatorname{\mathcal{H}}}
+        \newcommand{\edps}{\operatorname{\mathcal{E}}}
+        \newcommand{\mx}{\operatorname{\mathcal{M}}}
+        \newcommand{\argmax}{\operatorname{arg\,max}}
+        \newcommand{\cons}[1]{\left[ \: #1 \: \right]}
+        \newcommand{\str}[1]{\texttt{"#1"}}
         \)
         <section>
-          <h2> String - 字串 </h2>
+          <section>
+            <h2> String - 字串 </h2>
+          </section>
+          <section>
+            江誠敏 <br>
+            bcw0x1bd2 (bobogei/step5/hanhanw)
+          </section>
         </section>
 
         <section>
@@ -69,7 +75,7 @@
             <h3> 字串為何如此重要？ </h3>
             <p> 當然！ 字串是我們傳遞資訊的基本單位？ </p>
             <aside class="notes">
-              123
+              
             </aside>
           </section>
 
@@ -79,6 +85,7 @@
               <ul>
                 <li> google </li>
                 <li> ctrl-F </li>
+                <li> 防毒軟體 </li>
               </ul>
             </p>
           </section>
@@ -90,12 +97,20 @@
                 <li> DNA 比對 </li>
               </ul>
             </p>
+            <aside class="notes">
+              DNA Database
+            </aside>
           </section>
 
           <section>
             <h3> 最重要的是他常常在資訊題目中出現 </h3>
             <p> 當然一定要好好弄清楚
             </p>
+            <aside class="notes">
+              其實比例也沒太多
+              比較重「知識」
+              做個小統計
+            </aside>
           </section>
         </section>
 
@@ -108,12 +123,12 @@
             </p>
           </section>
           <section>
-            <h3> 一些我們關心的問題 </h3>
+            <h3> 重點 </h3>
             <p>
               <ul>
-                <li> 匹配字串的數量：<br> 一對一？一對多？多對多？ </li>
-                <li> 出現的位置 </li>
-                <li> 出現的數量 </li>
+                <li class="fragment"> 匹配字串的數量：<br> 一對一？一對多？多對多？ </li>
+                <li class="fragment"> 時間複雜度 </li>
+                <li class="fragment"> 實作(的難度) </li>
               </ul>
             </p>
           </section>
@@ -126,6 +141,10 @@
               一個 <em> 字串 \( A \)</em> 是由在 <em>字元集 \( \Sigma \)</em> 裡的字元所組成的<b>序列</b>。
               我們記作 \( A = a_0 a_1 a_2 \cdots a_{n-1} \)，其中 \( n \) 為字串的 <em> 長度 </em>。
             </div>
+            <aside class="notes">
+              字元集大小會影響實作的複雜度
+              這邊都用0-base
+            </aside>
           </section>
 
           <section>
@@ -148,10 +167,15 @@
 
             <p> 如 \( A = \str{abcd} \)， \( S(1) = A[1, 3] = \str{bcd}\) ，<br> 簡單來說就是 \( A \) 尾巴的子字串！
             </p> <br>
+            <div class="fragment">
             <p> 一個簡單的廢話： </p>
             <div class="thm"> 
               一個字串 \( A \) 的子字串一定是他某個後綴的前綴 。
             </div>
+            <aside>
+              講後綴為什麼重要。
+            </aside>
+          </div>
           </section>
 
         </section>
@@ -179,7 +203,7 @@ for(int i = 0; i < lenA - lenB; i++) {
   }
 }
           </code></pre>
-            <p>
+            <p class="fragment">
               在亂數的情形下 \( \ord{N} \) ！
             </p>
           </section>
@@ -188,9 +212,12 @@ for(int i = 0; i < lenA - lenB; i++) {
             <p> 當然，測資哪會給你那麼好過！ </p>
             <p> 考慮 \( A = \texttt{"aaa} \cdots \texttt{aa"}, B = \texttt{"aaa} \cdots \texttt{ab"} \) ， <br>
               並且 \( A \) 的長度遠大於 \( B \) </p>
-            <p> \( B \) 從來沒有出現在 \( A \) 上，但你每個位置都要匹配到 \( B \) 的末端才知道！ </p>
-            <p> 總匹配數： \( \left( \abs{A} - \abs{B} \right) \abs{B} = \ord{ \abs{A} \abs{B} } \) </p>
-            <p> 不夠好！ </p>
+            <p class="fragment"> \( B \) 從來沒有出現在 \( A \) 上，但你每個位置都要匹配到 \( B \) 的末端才知道！ </p>
+            <p class="fragment"> 總匹配數： \( \left( \abs{A} - \abs{B} \right) \abs{B} = \ord{ \abs{A} \abs{B} } \) </p>
+            <p class="fragment"> 不夠好！ </p>
+            <aside class="notes">
+              舉例子： aaaaaaa, aaaab
+            </aside>
           </section>
         </section>
 
@@ -205,6 +232,12 @@ for(int i = 0; i < lenA - lenB; i++) {
                 <li> \( f \) 均勻 </li>
               </ol>
             </p>
+            <aside class="notes">
+              今天睡整場都行，但一定要會 Hash 。
+              拿找人做比喻。
+              給DNA找。
+              幾隻手指頭。
+            </aside>
           </section>
 
           <section>
@@ -218,6 +251,10 @@ for(int i = 0; i < lenA - lenB; i++) {
               其中 \( p, q \) 為挑好的質數
             </div>
             <p> 有點像進位制。 </p>
+            <aside class="notes">
+              拿進位舉列子， 7122 = 7000 + 100 + 20 + 2
+              q不是質數會???
+            </aside>
           </section>
 
           <section>
@@ -228,6 +265,10 @@ for(int i = 0; i < lenA - lenB; i++) {
               $$ f(A[i, j]) \equiv f(A[0, j]) - p^{j-i+1} f(A[0, i-1]) \pmod{q} $$
             </div>
             <p> 記下所有 \( f(A[0, k]) \) ， 所有 \( f(A[i, j]) \) 都可立刻 ( \( \ord{1} \) )求出！
+              <aside class="notes">
+                一樣用進位來舉例。
+                求連續和。
+              </aside>
             </section>
 
             <section>
@@ -239,6 +280,21 @@ for(int i = 0; i < lenA - lenB; i++) {
                   &#8594; 不一定，但發生意外的機率極低！</li>
               </ul>
               <p> 碰撞的機率是 \( 1/q \) &#8594; 最好 \(q\) 大一點！</p>
+              <aside class="notes">
+                等於時檢查： 會悲劇。 aaaaaaaa, aaaaa。
+              </aside>
+            </section>
+
+            <section>
+              <div class="prob">
+                Stammering Aliens <a href="http://acm.hdu.edu.cn/showproblem.php?pid=4080"> HDU 4080 </a> <br>
+                <hr>
+                給你一個字串 \( A \) 和 \( M \) ， 找最長的字串 \( B \) 使得 \( B \) 出現在 \( A \) 上至少 \( M \) 次。
+                ( \( \abs{A} \leq 4 \times 10^4 \) )
+              </div>
+              <aside class="notes">
+                二分答案。
+              </aside>
             </section>
 
             <section>
@@ -249,6 +305,9 @@ for(int i = 0; i < lenA - lenB; i++) {
                 ( 點的數量 \( \abs{V} \leq 10^6 \) )
               </div>
               <p> 咦？跟字串有什麼關係？ </p>
+              <aside class="notes">
+                可轉刮刮序列
+              </aside>
             </section>
 
             <section>
@@ -258,8 +317,12 @@ for(int i = 0; i < lenA - lenB; i++) {
               </p> <br>
 
               <p> \( k \) 個字串中任一對相撞的機率
-                $$ 1 - \frac{ q^{ \underline{k} } }{q^k} $$
+                $$ 1 - \frac{ q(q-1) \cdots (q-k+1) }{q^k} $$
               </p>
+              <aside class="notes">
+                用 log 來估算
+                2. = k^2/q
+              </aside>
             </section>
 
             <section>
@@ -272,26 +335,37 @@ for(int i = 0; i < lenA - lenB; i++) {
               <p> \( k \) 個字串中任一對相撞的機率
                 $$ 1 - \frac{ q^{ \underline{k} } }{q^k} \approx 99.3$$
               </p>
+              <aside class="notes">
+                提醒一定要算清楚！
+              </aside>
             </section>
           </section>
 
           <section>
             <section>
               <h2> KMP </h2>
-              <p> Knuth–Morris–Pratt algorithm </p>
-              <p> 應該是最廣為人知的線性單字串匹配演算法 </p>
+              <p class="fragment"> Knuth–Morris–Pratt algorithm </p>
+              <p class="fragment"> 應該是最廣為人知的線性單字串匹配演算法 </p>
+              <aside class="notes">
+                想到 KMP ... <br>
+                Knuth - Art of Computer Programming - Tex <br>
+              </aside>
             </section>
 
             <section>
               <h2> Fail function </h2>
-              <p> 在暴力法時我們每次匹配失敗時，往前一格，繼續匹配 </p>
-              <p>但往前一格真的是必要的嗎？</p>
-              <p> 其實有可能右移 \( 1, 2, \cdots, k-1 \) 都是不必要的，直接右移 \(k\) 就可以了。</p>
-              <p> Want: \( \fail(i) \) 要告訴我們，當我們匹配到 \( B[i] = A[j]\)，卻在 \( B[i+1] \) 的位置匹配失敗，應把
+              <p class="fragment"> 在暴力法時我們每次匹配失敗時，往前一格，繼續匹配 </p>
+              <p class="fragment">但往前一格真的是必要的嗎？</p>
+              <p class="fragment"> 其實有可能右移 \( 1, 2, \cdots, k-1 \) 都是不必要的，直接右移 \(k\) 就可以了。</p>
+              <p class="fragment"> Want: \( \fail(i) \) 要告訴我們，當我們匹配到 \( B[i] = A[j]\)，卻在 \( B[i+1] \) 的位置匹配失敗，應把
                 \( B[\fail(i)] \) 對齊 \(A[j]\) 繼續匹配。 </p>
-              <div class="quick">
+              <div class="quick fragment">
                 \( \fail(0) \) 應該要是多少？ 
               </div>
+
+              <aside class="notes">
+                舉例 aabaac match aabaabaac...。 <br>
+              </aside>
             </section>
 
             <section>
@@ -299,21 +373,32 @@ for(int i = 0; i < lenA - lenB; i++) {
               <p> 而且 \( \fail(i) \) 還要是滿足此性質的最大質，否則會漏掉一些可能性 </p> 
               <div class="def">
                 $$ \fail_B(i) = \begin{cases}
-      \max \{ k: P_B(k) = B[0, k] = B[i-k, i] \} \\
-      -1  \\
+                \max \{ k: P_B(k) = B[0, k] = B[i-k, i] \} \\
+                -1  \\
                 \end{cases}
                 $$
               </div><br>
+              <aside class="notes">
+                要特別講 \( \fail(0) \equiv -1 \)。
+              </aside>
+            </section>
+            <section>
+              <h3> Example </h3>
+              <script type="text/paperscript" src="js/fig/KMP1.js" canvas="canvas-KMP1"> </script>
+              <canvas id="canvas-KMP1" height="140" width="700">
               <p> 那要怎麼求出 \( \fail(i) \) 呢？ </p>
             </section>
 
             <section>
               <h3> Fail function 的遞回 </h3>
               <p> 利用 \( \fail(k) : k < i \) ， 我們可以求出 \( \fail(i) \) ！ </p>
-              <p> 不段嘗試 \( \fail(i), \fail^2(i), \fail^3(i), \cdots \) </p>
+              <p> 不段嘗試 \( \fail(i), \fail^2(i), \fail^3(i), \cdots \)，看看 \( B[0, \fail(i)+1] \) 是否符合條件。 </p>
+              <aside class="notes">
+                一次不夠，你有試…
+              </aside>
             </section>
 
-            <section>
+            <section data-background="black">
               <h3> Sample Code </h3>
               <pre><code data-trim>
 void build_fail_function(string B, int *fail) {
@@ -330,9 +415,9 @@ void build_fail_function(string B, int *fail) {
 }
                 </code></pre>
             </section>
-            <section>
+            <section data-background="black">
               <h3> Sample Code </h3>
-                <pre><code data-trim>
+              <pre><code data-trim>
 void match(string A, string B, int *fail) {
     int lenA = A.length(), lenB = B.length();
     int current_pos = -1;
@@ -349,6 +434,9 @@ void match(string A, string B, int *fail) {
     }
 }
                 </code></pre>
+              <aside class="notes">
+                提醒匹配成功後要 fail
+              </aside>
             </section>
 
             <section>
@@ -366,6 +454,9 @@ void match(string A, string B, int *fail) {
                 對一個字串 \( A \) ，如果 \( A[i] = A[i+k] \) ， 我們就稱 \( k \) 是 \( A \) 的周期。 請找出 \( A \) 所有的周期。
                 (  \( \ord{\abs{A}} \) )
               </div>
+              <aside class="notes">
+                easy, fail(last)
+              </aside>
             </section>
 
             <section>
@@ -374,11 +465,15 @@ void match(string A, string B, int *fail) {
                 <hr>
                 丟一個銅板，正面就在當前字串後記A，反面記B。現在給你一個AB序列，問你丟出此AB序列所需的期望時間為何？
               </div>
+              <aside class="notes">
+                fail(i) == o(n^3) matrix solve <br>
+                有結論(Conway)： E[t] = 2^n + 2^fail(i) +2^fail^2(i) ....
+              </aside>
             </section>
 
 
           </section>
-          
+
           <section>
             <section>
               <h3> Z algorithm </h3>
@@ -391,15 +486,19 @@ void match(string A, string B, int *fail) {
               <div class="quick">
                 \( A = \str{abaab} , Z_A(i) = ? \)
               </div>
+
+              <aside class="notes">
+                不要看到就想zzz...
+              </aside>
             </section>
 
 
-            
+
             <section>
               <h3> 複習一下！ </h3>
               <p>KMP</p>
               <script type="text/paperscript" canvas="canvas-KMP">
-              var starty = 20;
+                var starty = 20;
               var start = new Point(10, starty);
               var end = start + [400, 0];
               /*
@@ -430,7 +529,7 @@ void match(string A, string B, int *fail) {
               createRec(400, 440, 'red');
 
               var text2 = new PointText({
-                  point: [430, starty+10],
+                point: [430, starty+10],
                   content: 'i',
                   justification: 'center',
                   fillColor: 'black',
@@ -441,7 +540,7 @@ void match(string A, string B, int *fail) {
 
               <p>Z-value</p>
               <script type="text/paperscript" canvas="canvas-Z">
-              var starty = 20;
+                var starty = 20;
               var start = new Point(10, starty);
               var end = start + [400, 0];
               /*
@@ -472,7 +571,7 @@ void match(string A, string B, int *fail) {
               createRec(400, 440, 'red');
 
               var text2 = new PointText({
-                  point: [430, starty+10],
+                point: [430, starty+10],
                   content: 'i',
                   justification: 'center',
                   fillColor: 'black',
@@ -484,8 +583,125 @@ void match(string A, string B, int *fail) {
 
             <section>
               <h3> 如何求得 Z-Value ? </h3>
-              <p> 利用已知的資訊！ </p>
+              <p> 利用已知的資訊！<br>
+                  假設我們已經求出 \( Z(i) = z \)，也就是 \( A[0, z-1] = A[i, i+z-1] \)， 問： \( Z(j) \; : \; j \in [i, i+z-1] \) 是否可快速求？
+              </p>
+              <p> 可！ 等於把這整塊搬到最前面！ 令 \( j' = j - i \)</p>
               <p> 關鍵的三種 Case ！ </p>
+            </section>
+
+            <section>
+              <h3> Cases 1 </h3>
+              <p> \( j' + Z(j') \) 沒有超過範圍或碰到邊界。 </p>
+              <script type="text/paperscript" canvas="canvas-Zc1">
+                var starty = 20;
+              var start = new Point(10, starty);
+              var end = start + [400, 0];
+              /*
+              var path = new CompoundPath({
+                children: [
+                  new Path.Line(start, end), 
+                  new Path.Line(start - [0, 20], start + [0, 20]), 
+                  new Path.Line(end - [0, 20], end + [0, 20]), 
+                ],
+              });
+              path.style = {
+                strokeColor: 'black',
+                strokeWidth: 5,
+              }; */
+              createRec = function(a, b, c) {
+                var hwd = 16;
+                var rec = new Rectangle(start + [a, -hwd], start + [b, hwd]);
+                var path = new Path.RoundRectangle(rec, 5);
+                path.style = {
+                  fillColor: c,
+                };
+                return path;
+              };
+
+              createRec(0, 600, 'grey');
+              createRec(0, 220, 'blue');
+              createRec(100, 180, 'green');
+              createRec(300, 520, 'blue');
+              createRec(400, 480, 'green');
+              </script>
+              <canvas id="canvas-Zc1" width="650" height="100"></canvas>
+            </section>
+
+            <section>
+              <h3> Cases 2 </h3>
+              <p> \( j' + Z(j') \) 超過範圍。 </p>
+              <script type="text/paperscript" canvas="canvas-Zc2">
+                var starty = 20;
+              var start = new Point(10, starty);
+              var end = start + [400, 0];
+              /*
+              var path = new CompoundPath({
+                children: [
+                  new Path.Line(start, end), 
+                  new Path.Line(start - [0, 20], start + [0, 20]), 
+                  new Path.Line(end - [0, 20], end + [0, 20]), 
+                ],
+              });
+              path.style = {
+                strokeColor: 'black',
+                strokeWidth: 5,
+              }; */
+              createRec = function(a, b, c) {
+                var hwd = 16;
+                var rec = new Rectangle(start + [a, -hwd], start + [b, hwd]);
+                var path = new Path.RoundRectangle(rec, 5);
+                path.style = {
+                  fillColor: c,
+                };
+                return path;
+              };
+
+              createRec(0, 600, 'grey');
+              createRec(0, 220, 'blue');
+              createRec(100, 270, new Color(0, 1, 0, 0.5));
+              createRec(300, 520, 'blue');
+              createRec(400, 570, new Color(0, 1, 0, 0.5));
+              </script>
+              <canvas id="canvas-Zc2" width="650" height="100"></canvas>
+            </section>
+
+            <section>
+              <h3> Cases 3 </h3>
+              <p> \( j' + Z(j') \) 碰到邊界。 </p>
+              <script type="text/paperscript" canvas="canvas-Zc3">
+                var starty = 20;
+              var start = new Point(10, starty);
+              var end = start + [400, 0];
+              /*
+              var path = new CompoundPath({
+                children: [
+                  new Path.Line(start, end), 
+                  new Path.Line(start - [0, 20], start + [0, 20]), 
+                  new Path.Line(end - [0, 20], end + [0, 20]), 
+                ],
+              });
+              path.style = {
+                strokeColor: 'black',
+                strokeWidth: 5,
+              }; */
+              createRec = function(a, b, c) {
+                var hwd = 16;
+                var rec = new Rectangle(start + [a, -hwd], start + [b, hwd]);
+                var path = new Path.RoundRectangle(rec, 5);
+                path.style = {
+                  fillColor: c,
+                };
+                return path;
+              };
+
+              createRec(0, 600, 'grey');
+              createRec(0, 220, 'blue');
+              createRec(100, 220, 'green');
+              createRec(300, 520, 'blue');
+              createRec(400, 520, 'green');
+              </script>
+              <canvas id="canvas-Zc3" width="650" height="100"></canvas>
             </section>
 
             <section>
@@ -534,6 +750,11 @@ for ( int i = 1 ; i < len ; i ++ ) {
                 給定字串 \( S \)，求出最短的 \( A \) 使得 \( A \) 可以完全覆蓋 \( S \) 。 <br>
                 (  \( \abs{S} \leq 500000 \) )
               </div>
+              <aside class="notes">
+                多多不虧<br>
+                可蓋 -- ZZZ <br>
+                link-list<br>
+              </aside>
             </section>
           </section>
 
@@ -562,6 +783,10 @@ for ( int i = 1 ; i < len ; i ++ ) {
                   <li> 要匹配一個字串，只要二分搜，<br>看哪個跟他最像，從頭比對！</li>
                 </ul>
               </p>
+
+              <aside class="codes">
+                A區，B區...
+              </aside>
             </section>
 
             <section>
@@ -577,29 +802,29 @@ for ( int i = 1 ; i < len ; i ++ ) {
             <section>
               <p> Ex: \( S = \str{ABAABAAAB} \) </p>
               <div class="flex-row">
-              <table style='font-size: 90%'>
-                <tr> <td> \( \sa \) </td><td> </td> </tr>
-                <tr> <td> \( 5 \) </td><td> AAAB </td> </tr>
-                <tr> <td> \( 6 \) </td><td> AAB </td> </tr>
-                <tr> <td> \( 2 \) </td><td> AABAAAB </td> </tr>
-                <tr> <td> \( 7 \) </td><td> AB </td> </tr>
-                <tr> <td> \( 3 \) </td><td> ABAAAB </td> </tr>
-                <tr> <td> \( 0 \) </td><td> ABAABAAAB </td> </tr>
-                <tr> <td> \( 8 \) </td><td> B </td> </tr>
-                <tr> <td> \( 4 \) </td><td> BAAAB </td> </tr>
-                <tr> <td> \( 1 \) </td><td> BAABAAAB </td> </tr>
-  <!--0 & 5 & 0 & AAAB \\-->
-  <!--1 & 6 & 2 & AAB \\-->
-  <!--2 & 2 & 3 & AABAAAB \\-->
-  <!--3 & 7 & 1 & AB \\-->
-  <!--4 & 3 & 2 & ABAAAB \\-->
-  <!--5 & 0 & 4 & ABAABAAAB \\-->
-  <!--6 & 8 & 0 & B \\-->
-  <!--7 & 4 & 1 & BAAAB \\-->
-  <!--8 & 1 & 3 & BAABAAAB-->
-              </table>
-              <div class="quick inline"> \( \rank(i) \) 分別是多少？ </div>
-            </div>
+                <table style='font-size: 90%'>
+                  <tr> <td> \( \sa \) </td><td> </td> </tr>
+                  <tr> <td> \( 5 \) </td><td> AAAB </td> </tr>
+                  <tr> <td> \( 6 \) </td><td> AAB </td> </tr>
+                  <tr> <td> \( 2 \) </td><td> AABAAAB </td> </tr>
+                  <tr> <td> \( 7 \) </td><td> AB </td> </tr>
+                  <tr> <td> \( 3 \) </td><td> ABAAAB </td> </tr>
+                  <tr> <td> \( 0 \) </td><td> ABAABAAAB </td> </tr>
+                  <tr> <td> \( 8 \) </td><td> B </td> </tr>
+                  <tr> <td> \( 4 \) </td><td> BAAAB </td> </tr>
+                  <tr> <td> \( 1 \) </td><td> BAABAAAB </td> </tr>
+                  <!--0 & 5 & 0 & AAAB \\-->
+                  <!--1 & 6 & 2 & AAB \\-->
+                  <!--2 & 2 & 3 & AABAAAB \\-->
+                  <!--3 & 7 & 1 & AB \\-->
+                  <!--4 & 3 & 2 & ABAAAB \\-->
+                  <!--5 & 0 & 4 & ABAABAAAB \\-->
+                  <!--6 & 8 & 0 & B \\-->
+                  <!--7 & 4 & 1 & BAAAB \\-->
+                  <!--8 & 1 & 3 & BAABAAAB-->
+                </table>
+                <div class="quick inline"> \( \rank(i) \) 分別是多少？ </div>
+              </div>
             </section>
 
             <section>
@@ -625,17 +850,114 @@ for ( int i = 1 ; i < len ; i ++ ) {
             <section>
               <h3> 倍增算法 </h3>
               <p> Want: 對每個後綴，我先只比較前 \( 1 \) 個字元，用此得到的資訊求出只比前 \( 2 \) 個字元的大小關係，
-              再用此求出只比前 \( 4 \) 個字元的大小關係 … </p>
+                再用此求出只比前 \( 4 \) 個字元的大小關係 … </p>
               <p> 
+                前 \( 2k \) 個字元 = 某兩個後綴的前 \( k \) 個字元串接。<br>
+                &#8594; 等於每次要排序很多數對 \( (R_k(i), R_k(i+k) ) \)
               </p>
-              <p> 也就是 \( B \) 不可能會輸，頂多在第一階段平手。 </p>
+              <p> 如果一般排序法 &#8594; 每次 \( \ord{N \log N} \)<br>
+                  Radix sort &#8594; \( \ord{N} \)</p>
+            </section>
+
+            <section>
+              <h3> Example </h3>
+              <p> \( A = \str{ABAAB} \)</p>
+              <table class="fragment">
+                <tr>
+                  <td> \(i\) </td><td> 0 </td><td> 1 </td><td> 2 </td><td> 3 </td><td> 4 </td>
+                </tr>
+                <tr>
+                  <td> \(R_1(i)\) </td><td> 0 </td><td> 3 </td><td> 0 </td><td> 0 </td><td> 3 </td>
+              </table>
+
+              <hr>
+              <table class="fragment">
+                <tr>
+                  <td> \(i\) </td><td> 0 </td><td> 1 </td><td> 2 </td><td> 3 </td><td> 4 </td>
+                <tr>
+                  <td> </td><td> (0, 1) </td><td> (1, 0) </td><td> (0, 0) </td><td> (0, 1) </td><td> (1, -1) </td>
+                </tr>
+                <tr>
+                  <td> \(R_2(i)\) </td><td> 1 </td><td> 4 </td><td> 0 </td><td> 1 </td><td> 3 </td>
+              </table>
+
+              <hr>
+              <table class="fragment">
+                <tr>
+                  <td> \(i\) </td><td> 0 </td><td> 1 </td><td> 2 </td><td> 3 </td><td> 4 </td>
+                <tr>
+                  <td> </td><td> (1, 0) </td><td> (4, 1) </td><td> (0, 3) </td><td> (1, -1) </td><td> (3, -1) </td>
+                </tr>
+                <tr>
+                  <td> \(R_4(i)\) </td><td> 2 </td><td> 4 </td><td> 0 </td><td> 1 </td><td> 3 </td>
+              </table>
+
+            </section>
+
+            <section data-background="black">
+              <h3 style="color:white;"> 複習Radix Sort </h3>
+              <pre><code data-trim class="cpp">
+for (int i = 0; i < len; i++) ct[arr[i]+1]++;
+for (int i = 1; i < val; i++) ct[i]+=ct[i-1];
+for (int i = 0; i < len; i++) rk[i]=ct[arr[i]];
+</pre></code>
+            </section>
+
+            <section data-background="black">
+              <h3 style="color:white;"> Suffix Array part 1 </h3>
+              <pre><code data-trim class="cpp">
+memset(ct, 0, sizeof(ct));
+for(int i = 0; i < len; i++) ct[ip[i]+1]++;
+for(int i = 1; i < alp; i++) ct[i]+=ct[i-1];
+for(int i = 0; i < len; i++) rk[i]=ct[ip[i]];
+
+for(int i = 1; i < len; i *= 2){
+ /* Blablabla */
+}
+</pre></code>
+            </section>
+
+            <section data-background="black">
+              <h3 style="color:white;"> Suffix Array part 2 </h3>
+              <pre><code data-trim class="cpp">
+for (int j = 0; j < len; j++){
+  if (j+i > len) tp[j][1] = 0;
+  else tp[j][1] = rk[j+i] + 1;
+  tp[j][0] = rk[j];
+}
+
+memset(ct, 0, sizeof(ct));
+for(int j = 0; j < len; j++) ct[tp[j][1]+1]++;
+for(int j = 1; j < len+2; j++) ct[j] += ct[j-1];
+for(int j = 0; j < len; j++) tsa[ct[tp[j][1]]++] = j;
+</pre></code>
+            </section>
+
+            <section data-background="black">
+              <h3 style="color:white;"> Suffix Array part 3 </h3>
+              <pre><code data-trim class="cpp">
+memset(ct, 0, sizeof(ct));
+for(int j = 0; j < len; j++) ct[tp[j][0]+1]++;
+for(int j = 1; j < len + 1; j++) ct[j] += ct[j-1];
+for(int j = 0; j < len; j++) 
+  sa[ct[tp[tsa[j]][0]]++] = tsa[j];
+
+rk[sa[0]] = 0;
+for(int j = 1; j < len; j++){
+  if( tp[sa[j]][0] == tp[sa[j-1]][0] &&
+  tp[sa[j]][1] == tp[sa[j-1]][1] )
+    rk[sa[j]] = rk[sa[j-1]];
+  else
+  rk[sa[j]] = j;
+}
+</pre></code>
             </section>
 
             <section>
               <h3> Height Array </h3>
               <p> 前面說過， Suffix Array 會把相像的後綴排在一起。 </p>
               <div class="def"> 
-                 \(\hei(i)\) 代表 \(S_{B}(\sa(i))\) 跟 \(S_{B}(\sa(i-1))\) 前 \(k\) 個字元相同。
+                \(\hei(i)\) 代表 \(S_{B}(\sa(i))\) 跟 \(S_{B}(\sa(i-1))\) 前 \(k\) 個字元相同。
               </div>
               <p> </p>
             </section>
@@ -657,6 +979,21 @@ for ( int i = 1 ; i < len ; i ++ ) {
               <p> 證明：一樣看圖說故事！ </p>
             </section>
 
+            <section data-background="black">
+              <h3 style="color:white;"> Suffix Array - Height </h3>
+              <pre><code data-trim class="cpp">
+for (int i=0, h=0; i < len; i++){
+    if (rk[i] == 0) h = 0;
+    else {
+      int j = sa[rk[i]-1];
+      h = max(0,h-1);
+      for( ; ip[i+h] == ip[j+h]; h++);
+    }
+    he[rk[i]] = h;
+}
+</pre></code>
+            </section>
+
             <section>
               <div class="prob"> 
                 最長重複子字串 <a> 經典問題 </a> <br>
@@ -664,6 +1001,10 @@ for ( int i = 1 ; i < len ; i ++ ) {
                 給一個字串  \( A \)  ，求出他最長的一個重複的子字串，重複的部分可以重疊。( \(  \ord{ \sa } \) ) <br>
                 如果改成不能重複呢？  ( \( \ord{ \abs{A} \log \abs{A} } \) )
               </div>
+              <aside class="notes">
+                1. Easy ,  max height<br>
+                2. binary search
+              </aside>
             </section>
 
             <section>
@@ -685,6 +1026,13 @@ for ( int i = 1 ; i < len ; i ++ ) {
               </div>
             </section>
 
+            <section>
+              <h3> 線性後綴數組構造 </h3>
+              <ul>
+                <li> DC3 </li>
+                <li> SAIS </li>
+              </ul>
+            </section>
           </section>
 
           <section>
@@ -705,7 +1053,7 @@ for ( int i = 1 ; i < len ; i ++ ) {
                   你應該要會了！ \( \ord{ \abs{B} + \sum \abs{A_i}} \) ，線性。 
                 </li>
                 <li style="margin-top: 20px"> 多個字串 \( B_i \) 匹配一個字串 \( A \) 。 <br>
-                      \( \ord{ n \abs{A} + \sum \abs{B_i}  } \) ，不夠好。
+                  \( \ord{ n \abs{A} + \sum \abs{B_i}  } \) ，不夠好。
                 </li>
               </ul>
             </section>
@@ -755,21 +1103,320 @@ for ( int i = 1 ; i < len ; i ++ ) {
               </p>
             </section>
 
-            <section>
-            
-            </section>
+            <section data-background="black">
+              <pre><code class="cpp" data-trim>
+root->fail = NULL;
+queue< Node* > que;
+que.push_back(root);
+while ( !que.empty() ) {
+    Node *fa = que.front(); que.pop_front();
+
+    for (auto it = fa->child.begin(); 
+         it != fa->child.end(); it++) {
+        Node *cur = it->second, *ptr = fa->fail;
+        while ( ptr && !ptr->child.count(it->first) )
+          ptr = ptr->fail;
+
+        cur->fail = ptr ? ptr->child[it->first] : root;
+        que.push(cur);
+    }
+}
+              </code></pre>
           </section>
-        </div>
+
+          <section>
+            <div class="prob"> 
+              考研路茫茫 <a href="http://acm.hdu.edu.cn/showproblem.php?pid=2243"> HDU 2243 </a> <br>
+              <hr>
+              給你 \( N \) 個長度不超過 \( K \) 的字串，問你長度不超過 \( L \) ，且包含這 \( Ｎ \) 個字串裡至少一個的字串有幾個？
+              答案請 \( \bmod{2^{64}} \)。 <br>
+              ( \( N \lt 6, L \lt 2^{31} , K \leq 5 \) )
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3> 後綴自動機 </h3>
+            <p> 簡潔又強大的字串結構 </p>
+          </section>
+
+          <section>
+            <h3> 自動機 </h3>
+            <p> 簡單來說就是一張有向圖。</p>
+            <img src='img/automata.png'></img>
+            <ul>
+              <li> 圖上有許多點(狀態)。</li>
+              <li> 有些狀態會被標示為接受狀態。</li>
+              <li> 兩點間可能有有向邊，邊上有個字元。 </li>
+              <li> 如果一個字串從起點可以走到一個接受狀態，我們就說這個字串被接受了。 </li>
+            </ul>
+          </section>
+
+          <section>
+            <p> 如果兩個自動機接受的字串集合一樣，那他們是等價的。</p>
+            <img src='img/automata.png'></img><br>
+            <img src='img/automata2.png'></img>
+          </section>
+
+          <section>
+            <h3> 後綴自動機 </h3>
+            <div class="def">
+              一個字串 \( B \) 的後綴自動機是一個自動機，他接受一個字串 \( s \) 若且唯若 \( s \) 是 \( B \) 的一個後綴。 <br>
+              並且我們會希望後綴自動機上的狀態數量越少越好。
+            </div>
+          </section>
+
+          <section>
+            <h3> 暴力法 </h3>
+            <p> 每個 \( B \) 的子狀態都當一個狀態。 </p>
+            <p> \( \ord{N^2} \) ， 不佳。 </p>
+            <p> 勢必有等價的狀態。 </p>
+          </section>
+
+          <section>
+            <h3> 結束集合 </h3>
+            <p>
+              給定兩個字串 \( B, T \) ，我們定義 \( T \) 在 \( B \) 上的結束集合 \( \edps_B(T) \) 為
+              \(
+              \edps_B(T) = \{ i ~:  B[ i - \abs{T} + 1 , i ] = T \}
+              \)
+            </p>
+
+            <div class="thm">
+              \(T_1, T_2 \) 的結束集合相同，那對任何字串 \( A \) ，如果 \( T_1 A \) 是 \( B \) 的後綴，則 \( T_2 A \) 也是 \( B \) 的後綴。
+            </div>
+            <p> 所以他們可以看作是同一個 State ！ </p>
+          </section>
+
+          <section>
+            <div class="thm">
+              給定兩個字串 \( T_1, T_2 \) ， \( \abs{T_1} \leq \abs{T_2} \) ，那麼不是
+              \(  \edps(T_1) \cap \edps(T_2) = \varnothing  \) ，就是
+              \(  \edps(T_1) \supset \edps(T_2)  \) 。並且如果是後者， \( T_1 \) 會是 \( T_2 \) 的一個後綴。 
+            </div>
+          </section>
+
+          <section>
+            <div class="thm">
+  我們可以用  \( \equiv_B \)  將  \( B \)  的所有子字串分類，也就是 \( T_1, T_2 \) 被分在同一類若且唯若  \( T_1 \equiv_B T_2 \)  。假設我們將  \( B \)  的所有子字串分成  \( \alpha_1, \alpha_2 , \cdots , \alpha_k \) ，則
+              <ol>
+                <li>如果 \( t_1, t_2 \in \alpha_i \) ，則必有其中一個為另一個的後綴。</li>
+                <li>
+     \( k \)  恰好是後綴自動機上非起始節點的數量，每一個 \( \alpha_i \) 可以看做是後綴自動機上的一個 state 。
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section>
+            <h3> Fail Link </h3>
+            <p> 好像在哪裡看過… </p>
+            <div class="def">
+              如果 \( \alpha_i \) 是一個 State ， 定義 \( \max(\alpha_i), \min(\alpha_i) \) 為 \( \alpha_i \) 裡最長/短的字串。 <br>
+  我們用 \( \alpha(t) \) 來表示字串 \( t \) 所屬的集合，如果 \( s_i = \min(\alpha_i) \) ，我們定義
+  \[
+    \flk(\alpha_i) = \alpha(S_{s_i}(1))
+  \]
+            </div>
+            簡單來說，抓一個字串 \( s \in \alpha_1 \) ，一直去頭，總有一個時間這個字串和原來的 \( s \) 以經不是同個 state 了(假設變成 \( \alpha_2 \) )，那我們就令 \( \flk(\alpha_1) = \alpha_2 \)。
+          </section>
+          <section>
+            <div class="thm">
+              \( \abs{\min(\alpha_i)} = \abs{\max(\flk(\alpha_i))} + 1 \)。
+            </div>
+            <div class="def">
+              \( \mx(\alpha_i) = \abs{\max(\alpha_i)} \)。
+            </div>
+            <p>
+            所以 \( \alpha_i \) 包含的字串長度為 \( [ \mx(\flk(\alpha_i)) + 1, \mx(\alpha_i) ] \)</p>
+          </section>
+
+          <section>
+            <div class="def">
+              假設有一條有向邊從 \( u \) 連到 \( v \) 。
+              <ul>
+                <li> 如果 \( \mx(v) = \mx(u) + 1 \) ， 我們就說他是重邊</li>
+                <li> 否則他就是輕邊。 </li>
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <p>
+              現在我們終於可以來講線性的構造法了。
+            </p>
+
+            <div class="thm">
+              對於一個後綴自動機：
+              <ol>
+                <li>點的數量不超過 \( 2n - 1 \) 個，如果 \( n \leq 2 \)</li>
+                <li>邊的數量不超過 \( 3n \) 個。</li>
+              </ol>
+            </div>
+          </section>
+
+          <section>
+            <p> 想法是這樣的，我們從空字串開始，把字元一個一個加到後綴自動機裡。 </p>
+            <p> 假設原本的字串叫 \( B \) ， 加了一個字元 \( c \) 後變成 
+          \( B' = Bc \) </p>
+          <p> 我們必需了解 \(\edps_B, \edps_{B'} \) 怎麼變化。</p>
+          </section>
+
+          <section>
+            <p> 答案： 幾乎不會變！ </p>
+            <div class="thm">
+              <ul>
+                <li>
+              如果 \( T \) 不是 \( B' \) 的一個後綴，那 \( \edps_{B'}(T) = \edps_B(T) \) 。
+                </li>
+                <li>
+              如果 \( T \) 是 \( B' \) 的一個後綴，那 \( \edps_{B'}(T) = \edps_B(T) \cup \{n\} \) ，其中 \( n = \abs{B} = \abs{B'} - 1 \) 。
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            現在我們加了一個新的字元，我們要做的有
+            <ol>
+              <li> 增加一個新的 state ，代表 \( B' \)。</li>
+              <li> 增加許多新的有向邊。 </li>
+              <li> 維護好 \( \flk(\alpha), \mx(\alpha) \) </li>
+              <li> 維護好所有其他 state ！ </li>
+            </ol>
+          </section>
+
+          <section>
+            <p> 我們新增一個節點 \( \alpha_{k+1} \) </p>
+            <p>
+              假設 \( \alpha_k = \alpha(B) \) ，表示原本 \( B \) 對應的 state。 沿著 \( \alpha_k ,  \flk(\alpha_k) , \flk(\flk(\alpha_k)) , \cdots \) 我們可以遍歷所有 \( B \) 的後綴！
+            </p>
+
+            <p>令 \( u = \alpha_k \) </p>
+            <p> 如果 \( u \) 沒有連出去字元為 \( c \) 的有向邊，<br>則加一條 \( (u\rightarrow v, c) \) 的邊，然後令 \( u \leftarrow \flk(u) \) </p>
+            <p> 有3種case。</p>
+          </section>
+
+          <section>
+            <h3> Case #0 </h3>
+            <p> 一直走，走到起始的根節點 \( \alpha_0 \) 都沒有 \( c \) 的邊。 </p>
+            <p> 表示這個字元第一次出現。 </p>
+            <p> 令 \( \flk(\alpha_{k+1}) = \alpha_0 \) ，收工！ </p>
+          </section>
+
+          <section>
+            <h3> Case #1 </h3>
+            <p> \(u\) 有連出 \(c\) 的邊，假設 \( u \) 連到 \(v\)。  </p>
+            <p> 並且 \( \mx(v) = \mx(u) + 1 \) ，也就是 \( u \rightarrow v \) 是重邊。</p>
+            <p> v 裡的字串的 \( \edps \) 全部多加一個 \( n \)</p>
+            <p> \( \edps \) 還是一樣！ 不用分家。</p>
+            <p> 令 \( \flk(\alpha_{k+1}) = v \) ，收工！ </p>
+          </section>
+
+          <section>
+            <h3> Case #2 </h3>
+            <p> \(u\) 有連出 \(c\) 的邊，假設 \( u \) 連到 \(v\)。  </p>
+            <p> 並且 \( \mx(v) \gt \mx(u) + 1 \) ，也就是 \( u \rightarrow v \) 是輕邊。</p>
+            <p> v 裡的字串的 \( \edps \) 有些不加，有些全部多加一個 \( n \)</p>
+            <p> 慘了，只好分家。</p>
+          </section>
+
+          <section>
+            <h3> 分家 </h3>
+            <p> 複製 \( v \) 一分得到 \( v' \)。</p>
+            <p> \( \flk(v') \leftarrow \flk(v) \)。</p>
+            <p> \( \flk(v), \flk(\alpha_{k+1}) \leftarrow v' \)。</p>
+            <p>所有 \( u \) 往 \( \flk(u) \) 走到的節點如果有邊指向 \( v \) 要改指到 \( v' \) 。因此我們不段令 \( u \leftarrow \flk(u) \) 去檢查，直到 \( u = \alpha_0 \) 或 \( u \) 沒有連到 \( v \) 的邊為止。</p>
+          </section>
+
+          <section>
+            <pre><code data-trim>
+vector< State > vec;
+int root, tail;
+
+void extend(char c){
+  int u = tail; 
+  vec.push_back( State(vec[u].minv + 1) );
+  // State(a) : New state with minv = a
+  np = vec.size() - 1; // np : new point
+
+  for ( ; u && vec[u].child[c] == 0 ;
+        u = vec[u].flk )  vec[u].child[c] = np;  
+  /* Cases Here */
+  // ... 
+  /* Cases End */
+  tail = np;
+}
+              </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="cpp" data-trim>
+if (u == 0){ // Case #0
+  vec[np].flk = root;
+} else {
+  if (vec[ vec[u].child[c] ].maxv == vec[u].maxv + 1){
+    vec[np].flk = vec[u].child[c]; // Case #1
+  } else {
+    int v = vec[u].child[c];
+    vec.PB(vec[v]);
+    int vp = vec.size() - 1;
+    vec[vp].maxv = vec[u].maxv + 1;
+    vec[v].flk = vec[np].flk = vp;
+    for ( ; u && vec[u].child[c] == v; u=vec[u].flk)
+      vec[u].child[c] = vp;
+  }
+}
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>複雜度分析</h3>
+            <p> 還記得點和邊的數量級是 \( \ord{N} \) 嗎？ </p>
+            <p> 除了 Case #2 的 \( \texttt{for} \) 以外，其他的操作都會加一點/加一邊。 </p>
+            <p> Case #2 的話… 就相信他是線性的吧。<br>真的要說又是另一個故事了。</p>
+          </section>
+
+          <section>
+             <div class="prob">
+              你打敗的魔王們的逆襲 <a> ??? </a> <br>
+              <hr>
+              如何用後綴自動機做匹配？ <br>
+              如何用後綴自動機計算不同的子字串數？ <br>
+             </div>
+          </section>
+
+          <section>
+            <div class="prob">
+              Lexicographical Substring Search <a href="http://www.spoj.com/problems/SUBLEX/"> SPOJ 7258 </a> <br>
+              <hr>
+              給你一個字串 \( A \) ，接下來有 \( Q \) 比詢問，問你將 \( A \) 的所有字串列出後 \( \texttt{unique} \) 再 \( \texttt{sort} \) 的第 \( K \) 大的字串是哪個。 <br>
+              ( \( \abs{A} \leq 9 \times 10^4 ,  Q \leq 500, K \lt 2^{31} \) )
+            </div>
+          </section>
+
+          <section>
+            <div class="prob">
+              Three strings <a href="http://codeforces.com/problemset/problem/452/E"> CF 452E </a> <br>
+              <hr>
+              給你三個字串 \( A_1, A_2, A_3 \) ，對於所有 \( l \leq \min(A_1, A_2, A_3) \)，求出有多少 \( (i_1, i_2, i_3) \) 使得 \( A_1[i_1, i_1+l-1] = A_2[i_2, i_2+l-1] = A_3[i_3, i_3+l-1] \) <br>
+              ( \( \abs{A} \leq 9 \times 10^4 ,  Q \leq 500, K \lt 2^{31} \) )
+            </div>
+          </section>
+        </section>
+
       </div>
+    </div>
 
-      <script src="lib/js/head.min.js"></script>
-      <script src="js/reveal.js"></script>
-      <script src="bower_components/paper/dist/paper-full.js"></script>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script src="bower_components/paper/dist/paper-full.js"></script>
 
-      <script>
+    <script>
 
-        // Full list of configuration options available at:
-          // https://github.com/hakimel/reveal.js#configuration
+      // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
         controls: true,
         progress: true,
@@ -789,21 +1436,59 @@ for ( int i = 1 ; i < len ; i ++ ) {
           { src: 'plugin/math/math.js', async: true }
         ]
       });
-      
+
+      Reveal.configure({
+        keyboard: {
+          82: function() {MathJax.Hub.Rerender();}
+        }
+      })
+
       Reveal.addEventListener( 'slidechanged', function( event ) {
         setTimeout( function() {
           MathJax.Hub.Rerender(event.currentSlide);
         }, 150);
       });
-      </script>
+    </script>
 
-      <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          "HTML-CSS": {
-            scale: 80
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        "HTML-CSS": {
+          scale: 80
+        }
+      });
+    </script>
+    <style>
+      .reveal .controls div.slide-number {
+        width: 25px;
+        left: 27px;
+        top: 33px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: .5em;
+        font-weight: bold;
+        opacity: .5;
+      }
+    </style>
+    <script>
+      function currentSlideNumber(event) {
+        var formattedStr;
+          if (event.indexh === 0) {
+            return '';
           }
-        });
-      </script>
-
-    </body>
-  </html>
+          formattedStr = event.indexh;
+          if (event.indexv) {
+            formattedStr += '/' + event.indexv;
+          }
+          return formattedStr;
+      }
+   // fires on slide change
+         Reveal.addEventListener('slidechanged', function(event) {
+           document.querySelector('.slide-number').innerText = currentSlideNumber(event);
+         });
+         //
+         var slideNumberDiv = document.createElement('div');
+         slideNumberDiv.classList.add('slide-number');
+         document.querySelector('.controls').appendChild(slideNumberDiv);
+    </script>
+  </body>
+</html>
